@@ -22,7 +22,7 @@ async def on_message(message):
         time = int(time)
         if time > 23:
             return
-        time_message = "British Standard Time " + str(time -1) + "00\n" + "Eastern Standard Time " + str(time - 6) + "00\n" + "Arabian Standard Time " + str(time + 1) +"00"
+        time_message = "British Summer Time " + str(time -1) + "00\n" + "Eastern Standard Time " + str(time - 6) + "00\n" + "Arabian Standard Time " + str(time + 1) +"00"
 
         await message.channel.send(time_message)
 
