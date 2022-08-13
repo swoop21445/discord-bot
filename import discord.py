@@ -26,4 +26,4 @@ async def on_message(message):
 
         await message.channel.send(time_message)
 
-client.run("MTAwNzY5NjI3OTkwOTk2OTk3MA.G3ZfgY.192Ei6MvhQBmHCHKdLg070zC-hM-Og5MdSHs8o")
+client.run("")
