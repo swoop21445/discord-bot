@@ -1,13 +1,13 @@
 import discord
 import re
 import secrets
-import daemon
+"""import daemon"""
 
 
 def discord_bot():
     client = discord.Client()
 
-    time_relationships = {"GMT":0, "CEST" : 2, "BST" : 1, "EST": -5, "AST":3}
+    time_relationships = {"GMT":0, "CEST" : 2, "BST" : 1, "CST": -4, "AST":3}
 
     @client.event
     async def on_ready():
@@ -25,20 +25,29 @@ def discord_bot():
             time = int(time)
             if time > 23 and time < 1000:
                 return
-            zone = re.findall("[A-Z]+", message.content)[0]
+
+            for timezone in time_relationships.keys():
+                search = re.search(timezone,message.content)
+                if search:
+                    zone = search.group()
+            print(zone)
             try:
                 gmt = time - time_relationships[zone]
             except:
                 return
             cest = gmt + time_relationships["CEST"]
             bst = gmt + time_relationships["BST"]
-            est = gmt + time_relationships["EST"]
+            cst = gmt + time_relationships["CST"]
             ast = gmt + time_relationships["AST"]
-            time_message = "Central European Summer Time " + str(cest) + "00\n"+"British Summer Time " + str(bst) + "00\n" + "Eastern Standard Time " + str(est) + "00\n" + "Arabian Standard Time " + str(ast) +"00\n"+ "Greenwich Mean Time " + str(gmt) + "00\n"
+            time_message = "Central European Summer Time " + str(cest) + "00\n"+"British Summer Time " + str(bst) + "00\n" + "Central Standard Time " + str(cst) + "00\n" + "Arabian Standard Time " + str(ast) +"00\n"+ "Greenwich Mean Time " + str(gmt) + "00\n"
 
             await message.channel.send(time_message)
 
     client.run(secrets.token)
 
+discord_bot()
+"""
 with daemon.DaemonContext():
     discord_bot()
+
+"""
