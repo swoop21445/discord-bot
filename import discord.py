@@ -1,7 +1,7 @@
 import discord
 import re
 import secrets
-"""import daemon"""
+import daemon
 
 
 def discord_bot():
@@ -45,9 +45,7 @@ def discord_bot():
 
     client.run(secrets.token)
 
-discord_bot()
-"""
+
 with daemon.DaemonContext():
     discord_bot()
 
-"""
