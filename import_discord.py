@@ -1,7 +1,7 @@
 import discord
 import re
 import secrets
-import daemon
+"""import daemon"""
 
 
 def discord_bot():
@@ -17,13 +17,18 @@ def discord_bot():
     async def on_message(message):
         if message.author == client.user:
             return
+        message.content = re.sub('<.*?>', '', message.content)
+        print(message.content)
+        if "Thanks Time bot." in message.content:
+            await message.channel.send("https://tenor.com/view/idiocracy-test-genius-iq-gif-14792434")
         if "CEST" or "BST" or "EST" or "AST" in message.content:
             try:
                 time = re.findall("\d+", message.content)[0]
             except:
                 return
             time = int(time)
-            if time > 23 and time < 1000:
+            print(time)
+            if time > 23 and time < 1000 and time > 2300:
                 return
 
             for timezone in time_relationships.keys():
@@ -46,6 +51,6 @@ def discord_bot():
     client.run(secrets.token)
 
 
-with daemon.DaemonContext():
-    discord_bot()
+"""with daemon.DaemonContext():"""
+discord_bot()
 
